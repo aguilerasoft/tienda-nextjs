@@ -1,7 +1,7 @@
 "use server";
 
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 
 
 //// Registrar IP
@@ -93,6 +93,7 @@ export const createRegistrarIP = async (data: { numero: number }): Promise<Regis
 
 /// Producto
 export interface Producto {
+    id: number;
     colors: string[];
     sizes: string[];
     customizationOptions: {
@@ -153,7 +154,7 @@ export async function fetchProducto(): Promise<Producto[]> {
 
 /// Talla
 export interface Talla {
-    
+    id: number;
     name: string;
     
 }
@@ -201,6 +202,8 @@ export async function fetchTalla(): Promise<Talla[]> {
 
 /// Categoria
 export interface Categoria {
+
+    id: number;
     
     name: string;
  
@@ -253,7 +256,7 @@ export async function fetchCategoria(): Promise<Categoria[]> {
 
 /// Color
 export interface Color {
-    
+    id: number;
     name: string;
     
 }

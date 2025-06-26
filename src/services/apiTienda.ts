@@ -16,6 +16,8 @@ export interface ProductoTienda {
     basePrice: number | null;
     image: string;
     customizable: boolean;
+    categoria: string;
+    id: number;
 }
 export async function fetchProductoTienda(): Promise<ProductoTienda[]> {
 
@@ -68,7 +70,7 @@ export async function fetchProductoTiendaPorId(id: string | number): Promise<Pro
 }
 /// Categoria Tienda
 export interface CategoriaTienda {
-    
+    id: number;
     name: string;
     
 }

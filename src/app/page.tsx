@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { whatsapp } from '@/app/data-products';
 import { fetchProductoTienda, fetchCategoriaTienda } from '@/services/apiTienda';
+import type { ProductoTienda, CategoriaTienda } from '@/services/apiTienda';
 
 
 
@@ -54,10 +55,10 @@ export default function Home() {
             const data = await fetchProductoTienda();
             setProducts(data);
         } catch (err) {
-            setError('Error al cargar los productos');
+            //setError('Error al cargar los productos');
             console.error(err);
         } finally {
-            setLoading(false);
+            //setLoading(false);
         }
     };
 
@@ -200,7 +201,7 @@ console.log(categories)
                         <p className="text-gray-900 font-bold text-lg">${product.basePrice}</p>
                       </div>
                       <div className="flex space-x-1">
-                        {product.colors.slice(0, 3).map((color, index) => (
+                        {product.colors.slice(0, 3).map((color:any, index:any) => (
                           <div 
                             key={index} 
                             className="w-4 h-4 rounded-full border border-gray-200"

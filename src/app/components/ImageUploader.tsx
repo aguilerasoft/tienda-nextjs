@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useDropzone, FileRejection } from 'react-dropzone';
 import Image from 'next/image';
 
 interface ImageUploaderProps {
@@ -20,7 +20,7 @@ export default function ImageUploader({
   const [files, setFiles] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const onDrop = useCallback((acceptedFiles: File[], fileRejections: { errors: { code: string }[] }[]) => {
+  const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
     setError(null);
     
     // Handle rejected files
@@ -52,9 +52,15 @@ export default function ImageUploader({
     onFilesChange(updatedFiles);
   };
 
+  // Convierte el array de tipos aceptados en un objeto Accept
+  const acceptObj = acceptedTypes.reduce((acc, type) => {
+    acc[type] = [];
+    return acc;
+  }, {} as Record<string, string[]>);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: acceptedTypes.join(','),
+    accept: acceptObj,
     maxSize: maxSize * 1024 * 1024,
     multiple: maxFiles > 1
   });

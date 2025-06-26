@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { fetchProducto } from '@/services/api';
+import type { Producto } from '@/services/api';
 
 export default function Nuevo() {
     const [productos, setProductos] = useState<Producto[]>([]);

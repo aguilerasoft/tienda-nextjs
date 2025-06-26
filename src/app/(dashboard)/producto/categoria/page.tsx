@@ -1,6 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { fetchCategoria } from '@/services/api';
+import type { Categoria } from '@/services/api';
+
 
 export default function Categoria() {
     const [categorias, setProductos] = useState<Categoria[]>([]);

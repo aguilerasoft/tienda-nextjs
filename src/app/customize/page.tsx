@@ -463,8 +463,30 @@ export default function Page() {
     async function loadProduct() {
       setLoading(true);
       try {
-        const fetchedProduct = await fetchProductoTiendaPorId(productId);
-        setProduct(fetchedProduct);
+        if (productId !== null) {
+          const fetchedProduct = await fetchProductoTiendaPorId(productId);
+          setProduct({
+            id: typeof productId === 'number' ? productId : Number(productId),
+            name: fetchedProduct.name,
+            price: fetchedProduct.price ?? 0,
+            basePrice: fetchedProduct.basePrice ?? 0,
+            customizable: fetchedProduct.customizable,
+            image: fetchedProduct.image,
+            sizes: fetchedProduct.sizes,
+            colors: fetchedProduct.colors,
+            customizationOptions: fetchedProduct.customizationOptions
+              ? {
+                  type: Array.isArray(fetchedProduct.customizationOptions.type)
+                    ? (fetchedProduct.customizationOptions.type[0] as 'text' | 'image')
+                    : (fetchedProduct.customizationOptions.type as 'text' | 'image'),
+                  maxTextLength: fetchedProduct.customizationOptions.maxTextLength ?? undefined,
+                  maxImages: fetchedProduct.customizationOptions.maxImages ?? undefined,
+                  imageTypes: undefined, // Ajusta esto si tu API lo provee
+                  maxImageSize: fetchedProduct.customizationOptions.maxImageSize ?? undefined,
+                }
+              : undefined,
+          });
+        }
       } catch (error) {
         console.error('Error al cargar el producto:', error);
         setProduct(null);

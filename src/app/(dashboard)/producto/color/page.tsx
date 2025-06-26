@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { fetchColor } from '@/services/api';
+import type { Color } from '@/services/api';
 
 export default function Color() {
     const [colores, setProductos] = useState<Color[]>([]);

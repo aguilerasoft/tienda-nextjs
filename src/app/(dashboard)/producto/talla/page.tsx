@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { fetchTalla } from '@/services/api';
+import type { Talla } from '@/services/api';
 
 export default function Talla() {
     const [tallas, setProductos] = useState<Talla[]>([]);
