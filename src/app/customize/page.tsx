@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -449,14 +449,13 @@ const ProductCustomizer = ({ product, onSubmit }: ProductCustomizerProps) => {
   );
 };
 
-export default function Page() {
+function CustomizePageContent() {
   const searchParams = useSearchParams();
   const productIdParam = searchParams.get('productId');
   const productId = productIdParam ? parseInt(productIdParam, 10) : null;
 
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
-  
   // Usar variable de entorno para el número de WhatsApp
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || whatsapp[0].number;
 
@@ -563,9 +562,15 @@ export default function Page() {
           Volver a la tienda
         </Link>
       </div>
-    
       <ProductCustomizer product={product} onSubmit={handleSubmit} />
-      
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center h-screen"><FaSpinner className="animate-spin text-4xl text-indigo-600" /></div>}>
+      <CustomizePageContent />
+    </Suspense>
   );
 }
