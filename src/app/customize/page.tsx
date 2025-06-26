@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { FaArrowLeft, FaUpload, FaSpinner, FaTimes } from 'react-icons/fa';
 import { fetchProductoTiendaPorId } from '@/services/apiTienda';
 import { whatsapp } from '@/app/data-products';
+export const dynamic = 'force-dynamic'
+
 
 console.log(whatsapp[0].number)
 
@@ -219,7 +221,8 @@ const ProductCustomizer = ({ product, onSubmit }: ProductCustomizerProps) => {
           <div className="relative aspect-square rounded-xl overflow-hidden flex items-center justify-center bg-gray-50">
             <div className="absolute inset-0">
               <div className="relative w-full h-full">
-                <Image 
+                <Image
+                  
                   src={product.image} 
                   alt="Producto original" 
                   layout="fill"
@@ -254,6 +257,8 @@ const ProductCustomizer = ({ product, onSubmit }: ProductCustomizerProps) => {
                     onClick={() => selectImage(index)}
                   >
                     <Image 
+                    width={64}
+                    height={64}
                       src={URL.createObjectURL(file)} 
                       alt={`Diseño ${index + 1}`} 
                       className="w-full h-full object-cover"
@@ -558,7 +563,9 @@ export default function Page() {
           Volver a la tienda
         </Link>
       </div>
+    
       <ProductCustomizer product={product} onSubmit={handleSubmit} />
+      
     </div>
   );
 }
