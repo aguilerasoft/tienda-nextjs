@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
     await fs.promises.writeFile(filePath, buffer);
 
     // Crear URL pública
-    const publicUrl = `/uploads/${newFileName}`;
+    const publicUrl = `/var/task/public/uploads/${newFileName}`;
 
     return NextResponse.json({
       success: true,
